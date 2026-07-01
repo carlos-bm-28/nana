@@ -1,5 +1,6 @@
 package com.Nanas.demo.infraestructura.adaptadores.persistencia.adaptadores;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -88,6 +89,7 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
         usuarioEntity.setFechaNacimiento(cliente.getFechaNacimiento());
         usuarioEntity.setTipoUsuario(cliente.getTipoUsuario());
         usuarioEntity.setEstadoCuenta(cliente.getEstadoCuenta());
+        usuarioEntity.setFechaRegistro(LocalDateTime.now());
 
         ClienteEntity clienteEntity = new ClienteEntity();
         // Mapear los campos específicos de cliente 
@@ -208,6 +210,42 @@ public Nana buscarNanaPorId(Integer idNana) {
     nana.setCantidadReviews(entity.getCantidadReviews());
     
     return nana;
+}
+
+@Override
+public Usuario guardarUsuarioGenerico(Usuario usuario) {
+    // buscamos por el id al usuario 
+    UsuarioEntity entity = usuarioRepository.findById(usuario.getIdUsuario())
+            .orElseThrow(() -> new IllegalArgumentException("No se encontró el usuario a actualizar con ID: " + usuario.getIdUsuario()));
+
+    // seteamos los campos que cambian al hacer el login 
+    entity.setNombre(usuario.getNombre());
+    entity.setApellido(usuario.getApellido());
+    entity.setTelefono(usuario.getTelefono());
+    entity.setFotoPerfil(usuario.getFotoPerfil());
+    entity.setEstadoCuenta(usuario.getEstadoCuenta());
+    entity.setUltimoLogin(usuario.getUltimoLogin());
+
+    // guardamos los datos actualizados cno el  repositorio inyectado
+    UsuarioEntity guardado = usuarioRepository.save(entity);
+
+    // retornamos los valores para que el dominio los consuma
+    Usuario usuarioD = new Usuario();
+    usuarioD.setIdUsuario(guardado.getIdUsuario());
+    usuarioD.setNombre(guardado.getNombre());
+    usuarioD.setApellido(guardado.getApellido());
+    usuarioD.setCorreo(guardado.getCorreo());
+    usuarioD.setTelefono(guardado.getTelefono());
+    usuarioD.setDni(guardado.getDni());
+    usuarioD.setPasswordHash(guardado.getPasswordHash());
+    usuarioD.setFechaNacimiento(guardado.getFechaNacimiento());
+    usuarioD.setFotoPerfil(guardado.getFotoPerfil());
+    usuarioD.setTipoUsuario(guardado.getTipoUsuario());
+    usuarioD.setEstadoCuenta(guardado.getEstadoCuenta());
+    usuarioD.setFechaRegistro(guardado.getFechaRegistro());
+    usuarioD.setUltimoLogin(guardado.getUltimoLogin());
+
+    return usuarioD;
 }
     
     
