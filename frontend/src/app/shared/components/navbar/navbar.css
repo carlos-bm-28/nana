@@ -1,0 +1,291 @@
+/* ===========================
+   RESET
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+
+.navbar{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 70px;
+
+    background:#FFFFFF;
+
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+}
+
+/* ===========================
+   LOGO
+=========================== */
+
+.logo{
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#2563EB;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+    transition:.3s;
+
+}
+
+.logo:hover{
+
+    color:#1D4ED8;
+
+}
+
+/* ===========================
+   MENÚ
+=========================== */
+
+.menu{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:45px;
+
+    flex:1;
+
+    margin:0 50px;
+
+}
+
+.menu a{
+
+    text-decoration:none;
+
+    color:#374151;
+
+    font-size:17px;
+
+    font-weight:500;
+
+    transition:.3s;
+
+}
+
+.menu a:hover{
+
+    color:#2563EB;
+
+}
+
+/* ===========================
+   ACCIONES
+=========================== */
+
+.acciones{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+/* ===========================
+   USUARIO
+=========================== */
+
+.bienvenido{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#344054;
+
+    white-space:nowrap;
+
+}
+
+/* ===========================
+   BOTÓN LOGIN
+=========================== */
+
+.btn-login{
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    color:#111827;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-login:hover{
+
+    color:#2563EB;
+
+}
+
+/* ===========================
+   BOTÓN REGISTRARSE
+=========================== */
+
+.btn-register{
+
+    background:#2563EB;
+
+    color:white;
+
+    border:none;
+
+    padding:13px 24px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-register:hover{
+
+    background:#1D4ED8;
+
+}
+
+/* ===========================
+   BOTÓN DASHBOARD
+=========================== */
+
+.btn-dashboard{
+
+    background:#5B7DB1;
+
+    color:white;
+
+    border:none;
+
+    padding:13px 24px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-dashboard:hover{
+
+    background:#45679C;
+
+}
+
+/* ===========================
+   RESPONSIVE TABLET
+=========================== */
+
+@media(max-width:1100px){
+
+    .navbar{
+
+        padding:18px 30px;
+
+    }
+
+    .menu{
+
+        gap:25px;
+
+        margin:0 20px;
+
+    }
+
+}
+
+/* ===========================
+   RESPONSIVE MÓVIL
+=========================== */
+
+@media(max-width:900px){
+
+    .navbar{
+
+        flex-direction:column;
+
+        gap:20px;
+
+        padding:20px;
+
+    }
+
+    .menu{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:18px;
+
+        margin:0;
+
+    }
+
+    .acciones{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+    }
+
+}

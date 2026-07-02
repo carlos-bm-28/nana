@@ -1,0 +1,162 @@
+<app-navbar></app-navbar>
+
+<section class="buscar-page">
+
+    <div class="titulo">
+
+        <h1>Encuentra tu cuidadora ideal</h1>
+
+        <p>
+            Busca      estudiantes         universitarias          verificadas según tus necesidades.
+        </p> 
+
+    </div>
+
+    <div class="filtros">
+
+        <!-- Buscar por nombre -->
+        <input
+            type="text"
+            placeholder="🔍 Buscar por nombre"
+            [(ngModel)]="nombreBusqueda">
+
+        <!-- Distrito -->
+        <select [(ngModel)]="distritoSeleccionado">
+
+            <option value="">Todos los distritos</option>
+
+            <option value="Ancón">Ancón</option>
+            <option value="Ate">Ate</option>
+            <option value="Barranco">Barranco</option>
+            <option value="Breña">Breña</option>
+            <option value="Carabayllo">Carabayllo</option>
+            <option value="Chaclacayo">Chaclacayo</option>
+            <option value="Chorrillos">Chorrillos</option>
+            <option value="Cieneguilla">Cieneguilla</option>
+            <option value="Comas">Comas</option>
+            <option value="El Agustino">El Agustino</option>
+            <option value="Independencia">Independencia</option>
+            <option value="Jesús María">Jesús María</option>
+            <option value="La Molina">La Molina</option>
+            <option value="La Victoria">La Victoria</option>
+            <option value="Lima (Cercado)">Lima (Cercado)</option>
+            <option value="Lince">Lince</option>
+            <option value="Los Olivos">Los Olivos</option>
+            <option value="Lurigancho (Chosica)">Lurigancho (Chosica)</option>
+            <option value="Lurín">Lurín</option>
+            <option value="Magdalena del Mar">Magdalena del Mar</option>
+            <option value="Miraflores">Miraflores</option>
+            <option value="Pachacámac">Pachacámac</option>
+            <option value="Pueblo Libre">Pueblo Libre</option>
+            <option value="Puente Piedra">Puente Piedra</option>
+            <option value="Rímac">Rímac</option>
+            <option value="San Borja">San Borja</option>
+            <option value="San Isidro">San Isidro</option>
+            <option value="San Juan de Lurigancho">San Juan de Lurigancho</option>
+            <option value="San Juan de Miraflores">San Juan de Miraflores</option>
+            <option value="San Martín de Porres">San Martín de Porres</option>
+            <option value="San Miguel">San Miguel</option>
+            <option value="Santa Anita">Santa Anita</option>
+            <option value="Santiago de Surco">Santiago de Surco</option>
+            <option value="Surquillo">Surquillo</option>
+            <option value="Villa El Salvador">Villa El Salvador</option>
+            <option value="Villa María del Triunfo">Villa María del Triunfo</option>
+
+        </select>
+
+        <!-- Universidad -->
+        <select [(ngModel)]="universidadSeleccionada">
+
+            <option value="">Todas las universidades</option>
+            <option value="1">UTP</option>
+            <option value="2">UPC</option>
+            <option value="3">PUCP</option>
+            <option value="4">UNMSM</option>
+
+        </select>
+
+        <button
+            type="button"
+            (click)="buscar()">
+
+            Buscar
+
+        </button>
+
+    </div>
+
+    <!-- Cargando -->
+
+    <div class="estado" *ngIf="cargando">
+
+        <h3>Cargando cuidadoras...</h3>
+
+    </div>
+
+    <!-- Sin resultados -->
+
+    <div class="estado" *ngIf="!cargando && nanasFiltradas.length === 0">
+
+        <h3>No se encontraron cuidadoras.</h3>
+
+    </div>
+
+    <!-- Cards -->
+
+    <div class="cards" *ngIf="!cargando && nanasFiltradas.length > 0">
+
+        <div
+            class="card"
+            *ngFor="let nana of nanasFiltradas">
+
+            <div class="foto">
+                X
+            </div>
+
+            <h3>
+                {{ nana.nombre }} {{ nana.apellido }}
+            </h3>
+
+            <p>
+                <strong>Carrera:</strong>
+                {{ nana.carrera }}
+            </p>
+
+            <p>
+                <strong>Distrito:</strong>
+                {{ nana.distrito || 'No registrado' }}
+            </p>
+
+            <p>
+                <strong>Universidad:</strong>
+
+                <span *ngIf="nana.idUniversidad==1">UTP</span>
+                <span *ngIf="nana.idUniversidad==2">UPC</span>
+                <span *ngIf="nana.idUniversidad==3">PUCP</span>
+                <span *ngIf="nana.idUniversidad==4">UNMSM</span>
+
+            </p>
+
+            <p>
+                <strong>Disponibilidad:</strong>
+                {{ nana.disponibilidad }}
+            </p>
+
+            <p>
+                <strong>Tarifa:</strong>
+                S/. {{ nana.tarifaHora }} / hora
+            </p>
+
+            <button>
+
+                Ver Perfil
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<app-footer></app-footer>

@@ -13,7 +13,7 @@ import com.Nanas.demo.dominio.modelos.Cliente;
 
 @RestController
 @RequestMapping("/api/clientes")
-@CrossOrigin(origins = "*") //la conexión directa con el front end
+@CrossOrigin(origins = "*") 
 public class ClienteController {
 
     private final ClienteService clienteService;

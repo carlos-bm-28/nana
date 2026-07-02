@@ -15,7 +15,7 @@ import com.Nanas.demo.dominio.modelos.Usuario;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200") //puerto para el front
 public class AuthController {
     private final AuthService authService;
 
@@ -32,22 +32,21 @@ public class AuthController {
                 return ResponseEntity.badRequest().body(Map.of("error", "Correo y contraseña son obligatorios"));
             }
 
-            // Invoca el caso de uso transversal
+            
             Usuario usuarioLogueado = authService.iniciarSesion(correo, contrasena);
             
-            // Retorna el objeto completo a Angular
+            // retornar el objeto
             return ResponseEntity.ok(usuarioLogueado);
 
         } catch (IllegalArgumentException e) {
-            // Error 400: Datos incorrectos o inexistentes
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         } catch (IllegalStateException e) {
-            // Error 403: Cuenta suspendida o inactiva
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", e.getMessage()));
         } catch (Exception e) {
-            // Error 500: Cualquier caída inesperada en el servidor
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("error", "Ocurrió un error inesperado en el servidor"));
         }
     }
+    
 }
+

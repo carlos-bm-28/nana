@@ -1,0 +1,169 @@
+<div class="registro-page">
+
+  <div class="registro-left">
+
+    <div class="logo">
+      <h1>Nanas Universitarias</h1>
+
+      <p>
+        Plataforma segura para encontrar cuidadoras universitarias
+        verificadas cerca de ti.
+      </p>
+
+    </div>
+
+    <div class="welcome-card">
+
+      <h2>¡Encuentra a tu cuidadora ideal!</h2>
+
+      <p>
+        Crea tu cuenta como cliente y comienza a buscar estudiantes
+        universitarias confiables para el cuidado de tus hijos o
+        familiares.
+      </p>
+
+      <div class="emoji">
+        👨‍👩‍👧❤️👩‍🎓
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="registro-right">
+
+    <div class="registro-card">
+
+      <h2>Crear Cuenta</h2>
+
+      <p class="subtitle">
+        Registro para clientes.
+      </p>
+
+      <form [formGroup]="registroForm" (ngSubmit)="onRegister()">
+
+        <div class="row">
+
+          <div class="form-group">
+
+            <label>Nombre</label>
+
+            <input
+              type="text"
+              formControlName="nombre"
+              placeholder="Juan">
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Apellido</label>
+
+            <input
+              type="text"
+              formControlName="apellido"
+              placeholder="Pérez">
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Correo electrónico</label>
+
+          <input
+            type="email"
+            formControlName="correo"
+            placeholder="correo@ejemplo.com">
+
+        </div>
+
+        <div class="row">
+
+          <div class="form-group">
+
+            <label>Teléfono</label>
+
+            <input
+              type="text"
+              formControlName="telefono"
+              placeholder="999999999">
+
+          </div>
+
+          <div class="form-group">
+
+            <label>DNI</label>
+
+            <input
+              type="text"
+              formControlName="dni"
+              maxlength="8"
+              placeholder="12345678">
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Fecha de nacimiento</label>
+
+          <input
+            type="date"
+            formControlName="fechaNacimiento">
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Contraseña</label>
+
+          <input
+            type="password"
+            formControlName="passwordHash"
+            placeholder="********">
+
+        </div>
+
+        <div class="error" *ngIf="errorMessage">
+
+          {{ errorMessage }}
+
+        </div>
+
+        <div class="success" *ngIf="successMessage">
+
+          {{ successMessage }}
+
+        </div>
+
+        <button
+          class="btn-register"
+          type="submit"
+          [disabled]="registroForm.invalid">
+
+          Crear Cuenta
+
+        </button>
+
+      </form>
+
+      <p class="login-link">
+
+        ¿Ya tienes una cuenta?
+
+        <a routerLink="/login">
+
+          Inicia sesión
+
+        </a>
+
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

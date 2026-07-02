@@ -29,7 +29,7 @@ public class ReservaController {
         this.reservaService = reservaService;
     }
 
-    // 1. Crear / Solicitar Reserva
+    // crear reserva
     @PostMapping
     public ResponseEntity<?> crearReserva(@RequestBody Reserva reserva) {
         try {
@@ -44,7 +44,7 @@ public class ReservaController {
         }
     }
 
-    // 2. Aceptar Reserva (Por parte de la Nana)
+    // acpetar el reserva por aprte de las nanas
     @PatchMapping("/{id}/aceptar")
     public ResponseEntity<?> aceptarReserva(@PathVariable Integer id) {
         try {
@@ -55,7 +55,7 @@ public class ReservaController {
         }
     }
 
-    // 3. Rechazar Reserva (Por parte de la Nana)
+    // se rechaza la reserva
     @PatchMapping("/{id}/rechazar")
     public ResponseEntity<?> rechazarReserva(@PathVariable Integer id) {
         try {
@@ -66,7 +66,7 @@ public class ReservaController {
         }
     }
 
-    // 4. Simulación de Pago (Por parte del Cliente)
+    // pagar por parte del cliente
     @PostMapping("/{id}/pagar")
     public ResponseEntity<?> pagarReserva(@PathVariable Integer id) {
         try {
@@ -77,7 +77,7 @@ public class ReservaController {
         }
     }
 
-    // 5. Iniciar Servicio (En camino a domicilio)
+    // inicio del servicio
     @PatchMapping("/{id}/iniciar")
     public ResponseEntity<?> iniciarServicio(@PathVariable Integer id) {
         try {
@@ -88,7 +88,6 @@ public class ReservaController {
         }
     }
 
-    // 6. Finalizar Servicio (Trabajo terminado)
     @PatchMapping("/{id}/finalizar")
     public ResponseEntity<?> finalizarServicio(@PathVariable Integer id) {
         try {
@@ -99,13 +98,12 @@ public class ReservaController {
         }
     }
 
-    // 7. Registrar Calificación y Reseña (Módulo de Reviews)
+    // registro de la calificacion del servicio
     @PostMapping("/{id}/calificar")
     public ResponseEntity<?> calificarServicio(
             @PathVariable Integer id,
             @RequestBody Map<String, Object> payload) {
         try {
-            // Extraemos los parámetros del cuerpo JSON de la petición
             Integer rating = (Integer) payload.get("rating");
             String comentario = (String) payload.get("comentario");
 
@@ -119,7 +117,7 @@ public class ReservaController {
         }
     }
 
-    // 8. RASTREO GPS: Obtener localización en tiempo real de la nana
+    // ubicacion de la nana en tiempo real
     @GetMapping("/nana/{idUsuario}/ubicacion")
     public ResponseEntity<?> obtenerUbicacionActualNana(@PathVariable Integer idUsuario) {
         try {

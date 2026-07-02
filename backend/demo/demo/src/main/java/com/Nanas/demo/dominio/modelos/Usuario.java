@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
+
 public class Usuario {
     private Integer idUsuario;
     private String nombre;

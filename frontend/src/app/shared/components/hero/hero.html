@@ -1,0 +1,49 @@
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="hero-badge">
+            ✔ Plataforma segura y verificada
+        </span>
+
+        <h1>
+            Encuentra una cuidadora universitaria de confianza para tu familia.
+        </h1>
+
+        <p>
+            Conectamos familias con estudiantes universitarias verificadas
+            para el cuidado de niños y adultos mayores de forma segura,
+            rápida y confiable.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a routerLink="/buscar" class="btn-primary">
+                Buscar cuidadora
+            </a>
+
+            <!-- Solo si NO hay sesión -->
+            <a *ngIf="!usuario" routerLink="/registro-nana" class="btn-secondary">
+
+                Quiero trabajar
+
+            </a>
+
+            <!-- Si inició sesión como NANA -->
+            <a *ngIf="usuario?.tipoUsuario === 'NANA'" routerLink="/dashboard-nana" class="btn-secondary">
+
+                Ir a mi Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="hero-image">
+    <img
+        src="https://www.empleoselsol.com/wp-content/uploads/2013/12/nanasynineras.jpg"
+        alt="Nanas Universitarias">
+</div>
+
+</section>

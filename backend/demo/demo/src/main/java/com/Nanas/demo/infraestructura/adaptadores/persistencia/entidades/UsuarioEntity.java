@@ -45,13 +45,13 @@ public class UsuarioEntity {
     @Column(name = "foto_perfil")
     private String fotoPerfil;
 
-     @Column(name = "tipo_usuario", nullable = false)    
+    @Column(name = "fecha_registro", updatable = false)   
     private LocalDateTime fechaRegistro;
 
-    @Column(name = "estado_cuenta")
+    @Column(name = "tipo_usuario", nullable = false) 
     private String tipoUsuario;
 
-    @Column(name = "fecha_registro", updatable = false)
+    @Column(name = "estado_cuenta")
     private String estadoCuenta;
 
     @Column(name = "ultimo_login")

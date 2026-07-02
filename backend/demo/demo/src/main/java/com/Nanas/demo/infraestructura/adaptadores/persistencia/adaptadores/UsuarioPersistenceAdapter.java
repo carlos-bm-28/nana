@@ -1,5 +1,6 @@
 package com.Nanas.demo.infraestructura.adaptadores.persistencia.adaptadores;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +23,12 @@ import com.Nanas.demo.infraestructura.adaptadores.persistencia.repositorios.Spri
 import com.Nanas.demo.infraestructura.adaptadores.persistencia.repositorios.SpringDataUsuarioRepository;
 
 @Component
-public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRepositoryPort  {
+public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRepositoryPort {
 
     private final SpringDataUsuarioRepository usuarioRepository;
     private final SpringDataClienteRepository clienteRepository;
     private final SpringDataNanaRepository nanaRepository;
     private final SpringDataDireccionRepository direccionRepository;
-
 
     public UsuarioPersistenceAdapter(SpringDataUsuarioRepository usuarioRepository,
             SpringDataClienteRepository clienteRepository, SpringDataNanaRepository nanaRepository,
@@ -38,8 +38,6 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
         this.nanaRepository = nanaRepository;
         this.direccionRepository = direccionRepository;
     }
-
-    
 
     @Override
     public Optional<Usuario> buscarPorCorreo(String correo) {
@@ -60,24 +58,24 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
             usuario.setUltimoLogin(entity.getUltimoLogin());
             return usuario;
         });
-        
+
     }
 
     @Override
     public boolean existePorCorreo(String correo) {
-        
+
         return usuarioRepository.existsByCorreo(correo);
     }
 
-   @Override
+    @Override
     public boolean existePorDni(String dni) {
-        
+
         return usuarioRepository.existsByDni(dni);
     }
 
     @Override
     public Cliente guardarCliente(Cliente cliente) {
-        
+
         UsuarioEntity usuarioEntity = new UsuarioEntity();
         // Mapear los campos generales para cliente de usuarioEntity
         usuarioEntity.setNombre(cliente.getNombre());
@@ -92,7 +90,7 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
         usuarioEntity.setFechaRegistro(LocalDateTime.now());
 
         ClienteEntity clienteEntity = new ClienteEntity();
-        // Mapear los campos específicos de cliente 
+        // Mapear los campos específicos de cliente
         clienteEntity.setUsuario(usuarioEntity);
         clienteEntity.setTipoCliente(cliente.getTipoCliente());
 
@@ -104,15 +102,17 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
         cliente.setFechaCreacion(guardado.getFechaCreacion());
         return cliente;
 
-
-
     }
 
     @Override
     public Nana guardarNana(Nana nana) {
-        
+
+        // ==========================
+        // Usuario
+        // ==========================
+
         UsuarioEntity usuarioEntity = new UsuarioEntity();
-        // Mapear los campos generales para nana de usuarioEntity
+
         usuarioEntity.setNombre(nana.getNombre());
         usuarioEntity.setApellido(nana.getApellido());
         usuarioEntity.setCorreo(nana.getCorreo());
@@ -120,11 +120,17 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
         usuarioEntity.setDni(nana.getDni());
         usuarioEntity.setPasswordHash(nana.getPasswordHash());
         usuarioEntity.setFechaNacimiento(nana.getFechaNacimiento());
-        usuarioEntity.setTipoUsuario(nana.getTipoUsuario());
-        usuarioEntity.setEstadoCuenta(nana.getEstadoCuenta());
+
+        usuarioEntity.setTipoUsuario("NANA");
+        usuarioEntity.setEstadoCuenta("ACTIVA");
+        usuarioEntity.setFechaRegistro(LocalDateTime.now());
+
+        // ==========================
+        // Nana
+        // ==========================
 
         NanaEntity nanaEntity = new NanaEntity();
-        // Mapear los campos específicos de nana    
+
         nanaEntity.setUsuario(usuarioEntity);
         nanaEntity.setIdUniversidad(nana.getIdUniversidad());
         nanaEntity.setCodigoUniversitario(nana.getCodigoUniversitario());
@@ -134,27 +140,61 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
         nanaEntity.setExperiencia(nana.getExperiencia());
         nanaEntity.setTarifaHora(nana.getTarifaHora());
 
-        // Guardar el nanaEntity en la base de datos
+        nanaEntity.setDisponibilidad("DISPONIBLE");
+        nanaEntity.setVerificado(false);
+        nanaEntity.setRatingPromedio(BigDecimal.ZERO);
+        nanaEntity.setCantidadReviews(0);
+
+        // ==========================
+        // Guardar Nana
+        // ==========================
+
         NanaEntity guardada = nanaRepository.save(nanaEntity);
+
+        // ==========================
+        // Dirección
+        // ==========================
+
+        DireccionEntity direccion = new DireccionEntity();
+
+        direccion.setIdUsuario(guardada.getUsuario().getIdUsuario());
+
+        direccion.setDepartamento(nana.getDepartamento());
+        direccion.setProvincia(nana.getProvincia());
+        direccion.setDistrito(nana.getDistrito());
+        direccion.setDireccion(nana.getDireccion());
+        direccion.setReferencia(nana.getReferencia());
+
+        direccion.setLatitud(0.0);
+        direccion.setLongitud(0.0);
+
+        direccionRepository.save(direccion);
+
+        // ==========================
+        // Retorno
+        // ==========================
+
         nana.setIdNana(guardada.getIdNana());
         nana.setIdUsuario(guardada.getUsuario().getIdUsuario());
         nana.setFechaRegistro(guardada.getUsuario().getFechaRegistro());
         nana.setFechaCreacion(guardada.getFechaCreacion());
-        
+
         return nana;
     }
 
     @Override
     public List<Nana> obtenerTodas() {
-        
-        //obtiene todas las nanas de la base de datos en formato de persistencia
+
+        // obtiene todas las nanas de la base de datos en formato de persistencia
         List<NanaEntity> nanaEntities = nanaRepository.findAll();
-        //prepara el contenedor basio para transformar la entidades a objetos del dominio(objetos de negocio)
+        // prepara el contenedor basio para transformar la entidades a objetos del
+        // dominio(objetos de negocio)
         List<Nana> dominioNanas = new ArrayList<>();
-        for(NanaEntity entity : nanaEntities) {
+        for (NanaEntity entity : nanaEntities) {
             Nana nana = new Nana();
             nana.setIdNana(entity.getIdNana());
             nana.setIdUsuario(entity.getUsuario().getIdUsuario());
+            nana.setIdUniversidad(entity.getIdUniversidad());
             nana.setNombre(entity.getUsuario().getNombre());
             nana.setApellido(entity.getUsuario().getApellido());
             nana.setCorreo(entity.getUsuario().getCorreo());
@@ -163,17 +203,31 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
             nana.setCarrera(entity.getCarrera());
             nana.setCiclo(entity.getCiclo());
 
-            //buscar coordenadas de la nana en la tabla direccion
+            nana.setDescripcion(entity.getDescripcion());
+            nana.setExperiencia(entity.getExperiencia());
+            nana.setDisponibilidad(entity.getDisponibilidad());
+            nana.setRatingPromedio(entity.getRatingPromedio());
+            nana.setCantidadReviews(entity.getCantidadReviews());
+            // buscar coordenadas de la nana en la tabla direccion
             // Busca la primera dirección del usuario vinculado a esta entidad.
             Optional<DireccionEntity> dir = direccionRepository.findByIdUsuario(entity.getUsuario().getIdUsuario());
-            //si encuentra la direccion, asigna las coordenadas a la nana
+            // si encuentra la direccion, asigna las coordenadas a la nana
             if (dir.isPresent()) {
+
+                nana.setDepartamento(dir.get().getDepartamento());
+                nana.setProvincia(dir.get().getProvincia());
+                nana.setDistrito(dir.get().getDistrito());
+                nana.setDireccion(dir.get().getDireccion());
+                nana.setReferencia(dir.get().getReferencia());
+
                 nana.setLatitud(dir.get().getLatitud());
                 nana.setLongitud(dir.get().getLongitud());
+
             } else {
-                
+
                 nana.setLatitud(0.0);
                 nana.setLongitud(0.0);
+
             }
             dominioNanas.add(nana);
         }
@@ -181,72 +235,70 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
         return dominioNanas;
     }
 
+    @Override
+    public Nana buscarNanaPorId(Integer idNana) {
+        // 1. Buscamos la entidad individual en la base de datos
+        Optional<NanaEntity> entityOpt = nanaRepository.findById(idNana);
 
+        if (entityOpt.isEmpty()) {
+            throw new IllegalArgumentException("No se encontró ninguna nana registrada con el ID: " + idNana);
+        }
 
-@Override
-public Nana buscarNanaPorId(Integer idNana) {
-    // 1. Buscamos la entidad individual en la base de datos
-    Optional<NanaEntity> entityOpt = nanaRepository.findById(idNana);
-    
-    if (entityOpt.isEmpty()) {
-        throw new IllegalArgumentException("No se encontró ninguna nana registrada con el ID: " + idNana);
+        NanaEntity entity = entityOpt.get();
+
+        Nana nana = new Nana();
+        nana.setIdNana(entity.getIdNana());
+        nana.setIdUsuario(entity.getUsuario().getIdUsuario());
+        nana.setNombre(entity.getUsuario().getNombre());
+        nana.setApellido(entity.getUsuario().getApellido());
+        nana.setCorreo(entity.getUsuario().getCorreo());
+        nana.setTelefono(entity.getUsuario().getTelefono());
+        nana.setTarifaHora(entity.getTarifaHora());
+        nana.setCarrera(entity.getCarrera());
+        nana.setCiclo(entity.getCiclo());
+
+        // Mapeamos también los campos del módulo de calificación
+        nana.setRatingPromedio(entity.getRatingPromedio());
+        nana.setCantidadReviews(entity.getCantidadReviews());
+
+        return nana;
     }
-    
-    NanaEntity entity = entityOpt.get();
-    
-    Nana nana = new Nana();
-    nana.setIdNana(entity.getIdNana());
-    nana.setIdUsuario(entity.getUsuario().getIdUsuario());
-    nana.setNombre(entity.getUsuario().getNombre());
-    nana.setApellido(entity.getUsuario().getApellido());
-    nana.setCorreo(entity.getUsuario().getCorreo());
-    nana.setTelefono(entity.getUsuario().getTelefono());
-    nana.setTarifaHora(entity.getTarifaHora());
-    nana.setCarrera(entity.getCarrera());
-    nana.setCiclo(entity.getCiclo());
-    
-    // Mapeamos también los campos del módulo de calificación
-    nana.setRatingPromedio(entity.getRatingPromedio());
-    nana.setCantidadReviews(entity.getCantidadReviews());
-    
-    return nana;
-}
 
-@Override
-public Usuario guardarUsuarioGenerico(Usuario usuario) {
-    // buscamos por el id al usuario 
-    UsuarioEntity entity = usuarioRepository.findById(usuario.getIdUsuario())
-            .orElseThrow(() -> new IllegalArgumentException("No se encontró el usuario a actualizar con ID: " + usuario.getIdUsuario()));
+    @Override
+    public Usuario guardarUsuarioGenerico(Usuario usuario) {
+        // buscamos por el id al usuario
+        UsuarioEntity entity = usuarioRepository.findById(usuario.getIdUsuario())
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "No se encontró el usuario a actualizar con ID: " + usuario.getIdUsuario()));
 
-    // seteamos los campos que cambian al hacer el login 
-    entity.setNombre(usuario.getNombre());
-    entity.setApellido(usuario.getApellido());
-    entity.setTelefono(usuario.getTelefono());
-    entity.setFotoPerfil(usuario.getFotoPerfil());
-    entity.setEstadoCuenta(usuario.getEstadoCuenta());
-    entity.setUltimoLogin(usuario.getUltimoLogin());
+        // seteamos los campos que cambian al hacer el login
+        entity.setNombre(usuario.getNombre());
+        entity.setApellido(usuario.getApellido());
+        entity.setTelefono(usuario.getTelefono());
+        entity.setFotoPerfil(usuario.getFotoPerfil());
+        entity.setEstadoCuenta(usuario.getEstadoCuenta());
+        entity.setUltimoLogin(usuario.getUltimoLogin());
 
-    // guardamos los datos actualizados cno el  repositorio inyectado
-    UsuarioEntity guardado = usuarioRepository.save(entity);
+        // guardamos los datos actualizados cno el repositorio inyectado
+        UsuarioEntity guardado = usuarioRepository.save(entity);
 
-    // retornamos los valores para que el dominio los consuma
-    Usuario usuarioD = new Usuario();
-    usuarioD.setIdUsuario(guardado.getIdUsuario());
-    usuarioD.setNombre(guardado.getNombre());
-    usuarioD.setApellido(guardado.getApellido());
-    usuarioD.setCorreo(guardado.getCorreo());
-    usuarioD.setTelefono(guardado.getTelefono());
-    usuarioD.setDni(guardado.getDni());
-    usuarioD.setPasswordHash(guardado.getPasswordHash());
-    usuarioD.setFechaNacimiento(guardado.getFechaNacimiento());
-    usuarioD.setFotoPerfil(guardado.getFotoPerfil());
-    usuarioD.setTipoUsuario(guardado.getTipoUsuario());
-    usuarioD.setEstadoCuenta(guardado.getEstadoCuenta());
-    usuarioD.setFechaRegistro(guardado.getFechaRegistro());
-    usuarioD.setUltimoLogin(guardado.getUltimoLogin());
+        // retornamos los valores para que el dominio los consuma
+        Usuario usuarioD = new Usuario();
+        usuarioD.setIdUsuario(guardado.getIdUsuario());
+        usuarioD.setNombre(guardado.getNombre());
+        usuarioD.setApellido(guardado.getApellido());
+        usuarioD.setCorreo(guardado.getCorreo());
+        usuarioD.setTelefono(guardado.getTelefono());
+        usuarioD.setDni(guardado.getDni());
+        usuarioD.setPasswordHash(guardado.getPasswordHash());
+        usuarioD.setFechaNacimiento(guardado.getFechaNacimiento());
+        usuarioD.setFotoPerfil(guardado.getFotoPerfil());
+        usuarioD.setTipoUsuario(guardado.getTipoUsuario());
+        usuarioD.setEstadoCuenta(guardado.getEstadoCuenta());
+        usuarioD.setFechaRegistro(guardado.getFechaRegistro());
+        usuarioD.setUltimoLogin(guardado.getUltimoLogin());
 
-    return usuarioD;
-}
-    
-    
+        return usuarioD;
+    }
+
 }

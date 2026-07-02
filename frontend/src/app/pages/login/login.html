@@ -1,0 +1,107 @@
+<div class="login-container">
+
+  <!-- Lado izquierdo -->
+  <div class="login-left">
+
+    <div class="brand">
+
+      <h1>Nanas Universitarias</h1>
+
+      <p>
+        Plataforma segura para conectar familias con estudiantes
+        universitarias calificadas.
+      </p>
+
+    </div>
+
+    <div style="font-size:100px;">
+    
+    </div>
+
+  </div>
+
+  <!-- Lado derecho -->
+  <div class="login-right">
+
+    <div class="login-card">
+
+      <h2>Bienvenido</h2>
+
+      <p class="subtitle">
+        Inicia sesión para continuar.
+      </p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+
+          <label>Correo electrónico</label>
+
+          <input
+            type="email"
+            formControlName="correo"
+            placeholder="ejemplo@correo.com">
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Contraseña</label>
+
+          <input
+            type="password"
+            formControlName="contrasena"
+            placeholder="********">
+
+        </div>
+
+        <p class="error" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </p>
+
+        <button
+          class="btn-login"
+          type="submit"
+          [disabled]="loginForm.invalid">
+
+          Iniciar sesión
+
+        </button>
+
+      </form>
+
+      <div class="divider">
+        <span>o</span>
+      </div>
+
+      <div class="register-link">
+
+        <p>¿Aún no tienes cuenta?</p>
+
+        <div class="register-options">
+
+          <a
+            routerLink="/registro"
+            class="cliente">
+
+            👨‍👩‍👧 Registro como cliente
+
+          </a>
+
+          <a
+            routerLink="/registro-nana"
+            class="nana">
+
+            👩‍🎓 Quiero trabajar
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

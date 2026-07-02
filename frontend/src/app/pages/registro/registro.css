@@ -1,0 +1,234 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Nunito Sans',sans-serif;
+}
+
+.registro-page{
+
+    display:flex;
+
+    min-height:100vh;
+}
+
+.registro-left{
+
+    width:40%;
+
+    background:#5B7DB1;
+
+    color:white;
+
+    padding:60px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+}
+
+.logo h1{
+
+    font-size:42px;
+
+    margin-bottom:20px;
+}
+
+.logo p{
+
+    line-height:1.7;
+
+    font-size:18px;
+}
+
+.welcome-card{
+
+    margin-top:50px;
+
+    background:rgba(255,255,255,.15);
+
+    padding:30px;
+
+    border-radius:18px;
+
+    backdrop-filter:blur(10px);
+}
+
+.welcome-card h2{
+
+    margin-bottom:15px;
+}
+
+.emoji{
+
+    font-size:60px;
+
+    text-align:center;
+
+    margin-top:25px;
+}
+
+.registro-right{
+
+    width:60%;
+
+    background:#F7F5F2;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:50px;
+}
+
+.registro-card{
+
+    width:100%;
+
+    max-width:700px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.registro-card h2{
+
+    color:#344054;
+
+    margin-bottom:10px;
+}
+
+.subtitle{
+
+    margin-bottom:30px;
+
+    color:#667085;
+}
+
+.row{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+}
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:20px;
+}
+
+.form-group label{
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+    color:#344054;
+}
+
+.form-group input,
+.form-group select{
+
+    padding:14px;
+
+    border:1px solid #D0D5DD;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    transition:.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+
+    outline:none;
+
+    border-color:#5B7DB1;
+
+    box-shadow:0 0 0 4px rgba(91,125,177,.15);
+}
+
+.btn-register{
+
+    width:100%;
+
+    margin-top:15px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#5B7DB1;
+
+    color:white;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.btn-register:hover{
+
+    background:#496C9D;
+}
+
+.btn-register:disabled{
+
+    background:#BFC7D5;
+
+    cursor:not-allowed;
+}
+
+.login-link{
+
+    margin-top:25px;
+
+    text-align:center;
+}
+
+.login-link a{
+
+    color:#5B7DB1;
+
+    text-decoration:none;
+
+    font-weight:bold;
+}
+
+.error{
+
+    color:#D92D20;
+
+    margin-bottom:15px;
+}
+
+.success{
+
+    color:#039855;
+
+    margin-bottom:15px;
+}

@@ -2,6 +2,8 @@ package com.Nanas.demo.infraestructura.adaptadores.persistencia.entidades;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import jakarta.persistence.PrePersist;
+
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -67,21 +70,28 @@ public class NanaEntity {
     private LocalDateTime fechaCreacion;
 
 
-    protected void onCreate() {
-        this.fechaCreacion = LocalDateTime.now();
-        if (this.disponibilidad == null) {
-            this.disponibilidad = "Disponible";            
-        }
-        if (this.verificado == null) {
-            this.verificado = false;            
-        }
-        if (this.ratingPromedio == null) {
-            this.ratingPromedio = BigDecimal.ZERO;
-        }
-        if (this.cantidadReviews == null) {
-            this.cantidadReviews = 0;
-        }
+ 
+@PrePersist
+protected void onCreate() {
+
+    this.fechaCreacion = LocalDateTime.now();
+
+    if (this.disponibilidad == null) {
+        this.disponibilidad = "DISPONIBLE";
     }
+
+    if (this.verificado == null) {
+        this.verificado = false;
+    }
+
+    if (this.ratingPromedio == null) {
+        this.ratingPromedio = BigDecimal.ZERO;
+    }
+
+    if (this.cantidadReviews == null) {
+        this.cantidadReviews = 0;
+    }
+}
 
 
     public Integer getIdNana() {

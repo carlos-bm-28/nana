@@ -1,0 +1,109 @@
+<section class="dashboard">
+
+    <header class="topbar">
+
+        <div>
+
+            <h1>
+
+                Hola {{ nombre }} {{ apellido }}
+
+            </h1>
+
+            <p>
+
+                Bienvenido nuevamente.
+
+            </p>
+
+        </div>
+
+        <button class="logout" (click)="cerrarSesion()">
+
+            Cerrar sesión
+
+        </button>
+
+    </header>
+
+    <section class="acciones">
+
+        <div class="card" routerLink="/buscar">
+
+            <div class="icono">🔍</div>
+
+            <h3>Buscar Cuidadoras</h3>
+
+            <p>
+                Encuentra la cuidadora ideal para tu familia.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icono">📅</div>
+
+            <h3>Mis Reservas</h3>
+
+            <p>
+                Consulta tus reservas realizadas.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icono">❤️</div>
+
+            <h3>Favoritos</h3>
+
+            <p>
+                Guarda tus nanas favoritas.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icono">👤</div>
+
+            <h3>Mi Perfil</h3>
+
+            <p>
+                Edita tu información personal.
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="paneles">
+
+        <div class="panel">
+
+            <h2>Próxima reserva</h2>
+
+            <p>
+                Aún no tienes reservas programadas...
+            </p>
+
+        </div>
+
+        <div class="panel">
+
+            <h2> Actividad reciente</h2>
+
+            <ul>
+
+                <li>Cuenta creada correctamente.</li>
+
+                <li>Bienvenido a Nanas Universitarias.</li>
+
+            </ul>
+
+        </div>
+
+    </section>
+
+</section>

@@ -18,6 +18,7 @@ import com.Nanas.demo.dominio.modelos.Nana;
 @RequestMapping("/api/nanas")
 @CrossOrigin(origins = "*")
 public class NanaController {
+
     private final NanaService nanaService;
 
     public NanaController(NanaService nanaService) {
@@ -26,22 +27,39 @@ public class NanaController {
 
     @PostMapping("/registrar")
     public ResponseEntity<?> registrarNana(@RequestBody Nana nana) {
+
         try {
+
             Nana nuevaNana = nanaService.registrarNana(nana);
+
             return ResponseEntity.status(HttpStatus.CREATED).body(nuevaNana);
+
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+
+            e.printStackTrace();
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+
         } catch (Exception e) {
+
+            e.printStackTrace(); 
+
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error interno al procesar el registro de la nana.");
+                    .body(e.getMessage()); //error visto en angular
+
         }
+
     }
 
-    // obtenemos solo nanas disponibles
+    // Obtener solo nanas disponibles
     @GetMapping("/disponibles")
     public ResponseEntity<List<Nana>> obtenerNanasDisponibles() {
-        List<Nana> nanas = nanaService.listarNanasDisponibles(); 
+
+        List<Nana> nanas = nanaService.listarNanasDisponibles();
+
         return ResponseEntity.ok(nanas);
+
     }
-    
+
 }

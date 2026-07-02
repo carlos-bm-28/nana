@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+/* Reset */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#F8FAFC;
+
+    color:#1F2937;
+}
+
+a{
+
+    text-decoration:none;
+}
+
+button{
+
+    font-family:'Poppins',sans-serif;
+}

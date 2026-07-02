@@ -30,7 +30,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         // validar si la cuenta no esta suspendida
-        if (usuario.getEstadoCuenta() != null && "SUSPENDIDO".equalsIgnoreCase(usuario.getEstadoCuenta())) {
+        if (usuario.getEstadoCuenta() != null && "SUSPENDIDA".equalsIgnoreCase(usuario.getEstadoCuenta())) {
             throw new IllegalStateException("Esta cuenta se encuentra suspendida.");
         }
 

@@ -1,0 +1,73 @@
+<header class="navbar">
+
+    <div class="logo">
+
+        Nanas Universitarias
+
+    </div>
+
+    <nav>
+
+        <a routerLink="/">Inicio      | </a>
+
+        <a routerLink="/buscar">   Buscar Cuidadoras      |  </a>
+
+        <a routerLink="/como-funciona">¿Cómo funciona?       |</a>
+
+        <a routerLink="/nosotros">Nosotros      |</a>
+
+        <a routerLink="/contacto"> Contacto</a>
+
+    </nav>
+
+    <div class="acciones">
+
+        <ng-container *ngIf="nombre==''; else logueado">
+
+            <button
+                routerLink="/login"
+                class="btn-login">
+
+                Iniciar sesión
+
+            </button>
+
+            <button
+                routerLink="/registro"
+                class="btn-register">
+
+                Registrarse
+
+            </button>
+
+        </ng-container>
+
+        <ng-template #logueado>
+
+            <span class="usuario">
+
+                👋 {{nombre}}
+
+            </span>
+
+            <button
+                class="btn-register"
+                (click)="irDashboard()">
+
+                Mi Dashboard
+
+            </button>
+
+            <button
+                class="btn-login"
+                (click)="cerrarSesion()">
+
+                Cerrar sesión
+
+            </button>
+
+        </ng-template>
+
+    </div>
+
+</header>

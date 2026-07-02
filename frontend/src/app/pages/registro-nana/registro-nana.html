@@ -1,0 +1,209 @@
+<app-navbar></app-navbar>
+
+<section class="registro-page">
+
+    <div class="registro-card">
+
+        <h2>Registro de Nana</h2>
+
+        <p>Completa toda tu información para comenzar a trabajar.</p>
+
+        <form [formGroup]="registroForm" (ngSubmit)="registrar()">
+
+            <div class="grid">
+
+                <div>
+
+                    <label>Nombre</label>
+                    <input type="text" formControlName="nombre">
+
+                </div>
+
+                <div>
+
+                    <label>Apellido</label>
+                    <input type="text" formControlName="apellido">
+
+                </div>
+
+                <div>
+
+                    <label>Correo</label>
+                    <input type="email" formControlName="correo">
+
+                </div>
+
+                <div>
+
+                    <label>Teléfono</label>
+                    <input type="text" formControlName="telefono">
+
+                </div>
+
+                <div>
+
+                    <label>DNI</label>
+                    <input type="text" formControlName="dni">
+
+                </div>
+
+                <div>
+
+                    <label>Contraseña</label>
+                    <input type="password" formControlName="passwordHash">
+
+                </div>
+
+                <div>
+
+                    <label>Fecha Nacimiento</label>
+                    <input type="date" formControlName="fechaNacimiento">
+
+                </div>
+
+                <div>
+
+                    <label>Universidad</label>
+
+                    <select formControlName="idUniversidad">
+
+                        <option value="1">UTP</option>
+                        <option value="2">UPC</option>
+                        <option value="3">PUCP</option>
+                        <option value="4">UNMSM</option>
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label>Código Universitario</label>
+
+                    <input type="text" formControlName="codigoUniversitario">
+
+                </div>
+
+                <div>
+
+                    <label>Carrera</label>
+
+                    <input type="text" formControlName="carrera">
+
+                </div>
+
+                <div>
+
+                    <label>Ciclo</label>
+
+                    <input type="number" formControlName="ciclo">
+
+                </div>
+
+                <div>
+
+                    <label>Tarifa por Hora</label>
+
+                    <input type="number" formControlName="tarifaHora">
+
+                </div>
+
+            </div>
+            <div>
+
+                <label>Departamento</label>
+
+                <select formControlName="departamento">
+
+                    <option value="">Seleccione</option>
+
+                    <option value="Lima">Lima</option>
+
+                </select>
+
+            </div>
+
+            <div>
+
+                <label>Provincia</label>
+
+                <select formControlName="provincia">
+
+                    <option value="">Seleccione</option>
+
+                    <option value="Lima">Lima</option>
+
+                </select>
+
+            </div>
+
+            <div>
+
+                <label>Distrito</label>
+
+                <select formControlName="distrito">
+
+                    <option value="">Seleccione</option>
+
+                    <option value="Ate">Ate</option>
+                    <option value="Barranco">Barranco</option>
+                    <option value="Breña">Breña</option>
+                    <option value="Chorrillos">Chorrillos</option>
+                    <option value="Comas">Comas</option>
+                    <option value="Jesús María">Jesús María</option>
+                    <option value="La Molina">La Molina</option>
+                    <option value="Lince">Lince</option>
+                    <option value="Los Olivos">Los Olivos</option>
+                    <option value="Magdalena">Magdalena</option>
+                    <option value="Miraflores">Miraflores</option>
+                    <option value="Pueblo Libre">Pueblo Libre</option>
+                    <option value="Rímac">Rímac</option>
+                    <option value="San Borja">San Borja</option>
+                    <option value="San Isidro">San Isidro</option>
+                    <option value="San Juan de Lurigancho">San Juan de Lurigancho</option>
+                    <option value="San Miguel">San Miguel</option>
+                    <option value="Santiago de Surco">Santiago de Surco</option>
+                    <option value="Surquillo">Surquillo</option>
+                    <option value="Villa El Salvador">Villa El Salvador</option>
+
+                </select>
+
+            </div>
+
+            <div>
+
+                <label>Dirección</label>
+
+                <input type="text" formControlName="direccion">
+
+            </div>
+
+            <div>
+
+                <label>Referencia</label>
+
+                <input type="text" formControlName="referencia">
+
+            </div>
+
+            <label>Experiencia</label>
+
+            <textarea rows="4" formControlName="experiencia"></textarea>
+
+            <label>Descripción</label>
+
+            <textarea rows="4" formControlName="descripcion"></textarea>
+
+            <button type="submit">
+
+                Registrarme como Nana
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<app-footer></app-footer>
