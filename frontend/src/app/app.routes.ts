@@ -13,6 +13,9 @@ import { RegistroNana } from './pages/registro-nana/registro-nana';
 import { AdminDashboard } from './pages/admin-dashboard/admin-dashboard';
 import { ClienteDashboard } from './pages/cliente-dashboard/cliente-dashboard';
 import { DashboardNana } from './pages/nana-dashboard/nana-dashboard';
+import { Reservar } from './pages/reservar/reservar';
+import { PerfilCliente } from './pages/perfil-cliente/perfil-cliente';
+import { Favoritos } from './pages/favoritos/favoritos';
 
 export const routes: Routes = [
 
@@ -21,6 +24,21 @@ export const routes: Routes = [
   {
     path: 'buscar',
     component: Buscar
+  },
+
+  {
+    path: 'reservar',
+    component: Reservar
+  },
+
+  {
+    path: 'favoritos',
+    component: Favoritos
+  },
+
+  {
+    path: 'perfil-cliente',
+    component: PerfilCliente
   },
 
   {

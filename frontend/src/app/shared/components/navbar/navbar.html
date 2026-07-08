@@ -6,51 +6,52 @@
 
     </div>
 
-    <nav>
+    
+        <nav class="navbar"> 
 
-        <a routerLink="/">Inicio      | </a>
+            <a routerLink="/">Inicio</a>
 
-        <a routerLink="/buscar">   Buscar Cuidadoras      |  </a>
+            <a routerLink="/buscar">   Buscar Cuidadoras</a>
 
-        <a routerLink="/como-funciona">¿Cómo funciona?       |</a>
+            <a routerLink="/como-funciona">¿Cómo funciona?</a>
 
-        <a routerLink="/nosotros">Nosotros      |</a>
+            <a routerLink="/nosotros">Nosotros</a>
 
-        <a routerLink="/contacto"> Contacto</a>
+            <a routerLink="/contacto"> Contacto</a>
 
-    </nav>
+        </nav>
 
-    <div class="acciones">
+        <div class="acciones">
 
-        <ng-container *ngIf="nombre==''; else logueado">
+            <ng-container *ngIf="nombre==''; else logueado">
 
-            <button
+                <button
                 routerLink="/login"
                 class="btn-login">
 
                 Iniciar sesión
 
-            </button>
+                </button>
 
-            <button
+                <button
                 routerLink="/registro"
                 class="btn-register">
 
                 Registrarse
 
-            </button>
+                </button>
 
-        </ng-container>
+            </ng-container>
 
-        <ng-template #logueado>
+            <ng-template #logueado>
 
-            <span class="usuario">
+                <span class="usuario">
 
-                👋 {{nombre}}
+                    👋 {{nombre}}
 
-            </span>
+                </span>
 
-            <button
+                <button
                 class="btn-register"
                 (click)="irDashboard()">
 
@@ -68,6 +69,8 @@
 
         </ng-template>
 
+    
     </div>
+
 
 </header>

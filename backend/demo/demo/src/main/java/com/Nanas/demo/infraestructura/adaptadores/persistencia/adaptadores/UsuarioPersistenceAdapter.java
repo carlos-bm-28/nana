@@ -301,4 +301,56 @@ public class UsuarioPersistenceAdapter implements UsuarioRepositoryPort, NanaRep
         return usuarioD;
     }
 
+    @Override
+    public Optional<Usuario> buscarPorId(Integer idUsuario) {
+
+        return usuarioRepository.findById(idUsuario)
+                .map(entity -> {
+
+                    Usuario usuario = new Usuario();
+
+                    usuario.setIdUsuario(entity.getIdUsuario());
+                    usuario.setNombre(entity.getNombre());
+                    usuario.setApellido(entity.getApellido());
+                    usuario.setCorreo(entity.getCorreo());
+                    usuario.setTelefono(entity.getTelefono());
+                    usuario.setDni(entity.getDni());
+                    usuario.setFechaNacimiento(entity.getFechaNacimiento());
+                    usuario.setFotoPerfil(entity.getFotoPerfil());
+                    usuario.setTipoUsuario(entity.getTipoUsuario());
+                    usuario.setEstadoCuenta(entity.getEstadoCuenta());
+
+                    return usuario;
+                });
+    }
+
+
+    @Override
+    public Cliente actualizarCliente(Integer idUsuario, Cliente cliente) {
+
+        UsuarioEntity entity = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> 
+                    new IllegalArgumentException("Usuario no encontrado"));
+
+        entity.setNombre(cliente.getNombre());
+        entity.setApellido(cliente.getApellido());
+        entity.setTelefono(cliente.getTelefono());
+        entity.setFotoPerfil(cliente.getFotoPerfil());
+
+        UsuarioEntity guardado = usuarioRepository.save(entity);
+
+        Cliente actualizado = new Cliente();
+
+        actualizado.setIdUsuario(guardado.getIdUsuario());
+        actualizado.setNombre(guardado.getNombre());
+        actualizado.setApellido(guardado.getApellido());
+        actualizado.setCorreo(guardado.getCorreo());
+        actualizado.setTelefono(guardado.getTelefono());
+        actualizado.setDni(guardado.getDni());
+        actualizado.setFotoPerfil(guardado.getFotoPerfil());
+        actualizado.setTipoUsuario(guardado.getTipoUsuario());
+        actualizado.setEstadoCuenta(guardado.getEstadoCuenta());
+
+        return actualizado;
+    }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 
+import { Router } from '@angular/router'; // 1. Importamos el Router
+
 @Component({
   selector: 'app-nana-dashboard',
   standalone: true,
@@ -11,6 +13,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 export class DashboardNana implements OnInit {
 
   private platformId = inject(PLATFORM_ID);
+  private router = inject(Router);
 
   nombre = '';
   apellido = '';
@@ -29,5 +32,15 @@ export class DashboardNana implements OnInit {
     }
 
   }
+
+  // 3. Añadimos la función exacta para cerrar sesión
+  cerrarSesion(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.clear(); // Borra los datos de sesión guardados
+    }
+    this.router.navigate(['/']); // Redirige a la página principal o login
+  }
+
+  
 
 }

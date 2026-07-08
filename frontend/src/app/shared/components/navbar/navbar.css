@@ -8,6 +8,21 @@
     box-sizing:border-box;
 }
 
+a{
+    text-decoration:none;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#111827
+
+}
+
+
+
 /* ===========================
    NAVBAR
 =========================== */
@@ -18,7 +33,9 @@
 
     display:flex;
 
-    justify-content:space-between;
+    gap: 30px;  
+
+    display:flex;
 
     align-items:center;
 
@@ -157,6 +174,8 @@
     font-weight:600;
 
     transition:.3s;
+
+    width: 134px;
 
 }
 
