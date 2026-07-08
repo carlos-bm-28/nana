@@ -1,0 +1,49 @@
+<app-navbar></app-navbar>
+
+<div class="perfil-container">
+  <h2>Mi Perfil</h2>
+
+  <div *ngIf="cargando" class="loading-state">
+    <p>Cargando datos del perfil...</p>
+  </div>
+
+  <div *ngIf="!cargando && errorMensaje" class="error-state" style="color: red; padding: 20px; background: #ffebeb; border: 1px solid red; border-radius: 5px; margin: 20px 0;">
+    <p><strong>⚠️ Ocurrió un problema:</strong></p>
+    <p>{{ errorMensaje }}</p>
+    <button (click)="obtenerUsuarioSesion()" style="margin-top: 10px; padding: 5px 10px;">Reintentar</button>
+  </div>
+
+  <div *ngIf="!cargando && !errorMensaje">
+
+    <div *ngIf="!modoEdicion" class="vista-lectura">
+      <div class="dato-grupo"><span class="etiqueta">Nombre:</span><p class="valor">{{ clienteDatos?.nombre }}</p></div>
+      <div class="dato-grupo"><span class="etiqueta">Apellido:</span><p class="valor">{{ clienteDatos?.apellido }}</p></div>
+      <div class="dato-grupo"><span class="etiqueta">Teléfono:</span><p class="valor">{{ clienteDatos?.telefono }}</p></div>
+      <div class="dato-grupo"><span class="etiqueta">Correo Electrónico:</span><p class="valor">{{ clienteDatos?.correo }}</p></div>
+      <div class="dato-grupo"><span class="etiqueta">DNI:</span><p class="valor">{{ clienteDatos?.dni }}</p></div>
+      <div class="acciones">
+        <button type="button" (click)="activarEdicion()" class="btn-actualizar">Actualizar perfil</button>
+      </div>
+    </div>
+
+    <form *ngIf="modoEdicion" [formGroup]="perfilForm" (ngSubmit)="guardarCambios()" class="vista-edicion">
+      <div class="form-group"><label>Nombre</label><input type="text" formControlName="nombre"></div>
+      <div class="form-group"><label>Apellido</label><input type="text" formControlName="apellido"></div>
+      <div class="form-group"><label>Teléfono</label><input type="text" formControlName="telefono"></div>
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input type="email" formControlName="correo">
+        <small *ngIf="perfilForm.get('correo')?.invalid && perfilForm.get('correo')?.touched" class="error-text">
+          Por favor, ingrese un correo electrónico válido.
+        </small>
+      </div>
+      <div class="acciones">
+        <button type="submit" [disabled]="perfilForm.invalid" class="btn-guardar">Guardar</button>
+        <button type="button" (click)="cancelarEdicion()" class="btn-cancelar">Cancelar</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<app-footer></app-footer>

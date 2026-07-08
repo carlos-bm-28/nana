@@ -53,6 +53,9 @@ export class Login implements OnInit {
       next: (response) => {
 
         console.log(response);
+        
+        //Guarda el objeto entero de Juan en el navegador como texto string
+        localStorage.setItem('usuario', JSON.stringify(response));
 
         const rol = response.tipoUsuario;
 

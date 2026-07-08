@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.Nanas.demo.aplicacion.puertos.entradas.ClienteService;
 import com.Nanas.demo.dominio.modelos.Cliente;
+import com.Nanas.demo.dominio.modelos.Usuario;
 import com.Nanas.demo.dominio.puertos.salidas.UsuarioRepositoryPort;
 
 @Service
@@ -43,6 +44,36 @@ public class ClienteServiceImpl implements ClienteService {
         }
 
         return usuarioRepositoryPort.guardarCliente(cliente);
+    }
+
+    @Override
+    public Cliente obtenerPerfil(Integer idUsuario) {
+
+        Usuario usuario = usuarioRepositoryPort.buscarPorId(idUsuario)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Cliente no encontrado"));
+
+        Cliente cliente = new Cliente();
+
+        cliente.setIdUsuario(usuario.getIdUsuario());
+        cliente.setNombre(usuario.getNombre());
+        cliente.setApellido(usuario.getApellido());
+        cliente.setCorreo(usuario.getCorreo());
+        cliente.setTelefono(usuario.getTelefono());
+        cliente.setDni(usuario.getDni());
+        cliente.setFechaNacimiento(usuario.getFechaNacimiento());
+        cliente.setFotoPerfil(usuario.getFotoPerfil());
+        cliente.setEstadoCuenta(usuario.getEstadoCuenta());
+        cliente.setTipoUsuario(usuario.getTipoUsuario());
+
+        return cliente;
+    }
+
+    @Override
+        public Cliente actualizarPerfil(Integer idUsuario, Cliente cliente) {
+
+            return usuarioRepositoryPort.actualizarCliente(idUsuario, cliente);
+
     }
     
 }

@@ -16,5 +16,9 @@ public interface UsuarioRepositoryPort {
     Nana buscarNanaPorId(Integer idNana);
 
     Usuario guardarUsuarioGenerico (Usuario usuario);
+
+    Optional<Usuario> buscarPorId(Integer idUsuario);
+
+    Cliente actualizarCliente(Integer idUsuario, Cliente cliente);
     
 }
